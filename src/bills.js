@@ -1,9 +1,13 @@
 import * as fs from 'fs';
 
-function billsFilter(uri) {
+function getPathFrom( uri ) {
   let splittedUri = uri.split('/');
   splittedUri.splice(splittedUri.length - 1, 1);
-  let path = splittedUri.join('/');
+  return splittedUri.join('/');
+}
+
+function billsFilter(uri) {
+  let path = getPathFrom(uri);
   fs.writeFileSync(`${path}/csvfile-filtered.csv`, '');
 }
 
