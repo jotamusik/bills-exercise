@@ -7,4 +7,8 @@ describe('Bills Filter', function () {
     billsFilter('./test/csvfile.csv');
     expect(fs.existsSync('./test/csvfile-filtered.csv')).toBeTruthy();
   });
+  test('Should read the file and write to the output one', function () {
+    billsFilter('./test/csvfile.csv');
+    expect(fs.readFileSync('./test/csvfile-filtered.csv').toString()).toBe(fs.readFileSync('./test/csvfile.csv').toString());
+  });
 });
