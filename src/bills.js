@@ -7,8 +7,9 @@ function getPathFrom( uri ) {
 }
 
 function billsFilter(uri) {
-  let path = getPathFrom(uri);
-  fs.writeFileSync(`${path}/csvfile-filtered.csv`, '');
+  let input = fs.readFileSync(uri);
+  let outputPath = getPathFrom(uri);
+  fs.writeFileSync(`${outputPath}/csvfile-filtered.csv`, input);
 }
 
 export {
