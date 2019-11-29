@@ -8,6 +8,6 @@ describe('Bills Filter', function () {
   });
   test('Should create a file with a suffix on the same location as input', function () {
     billsFilter('./test/csvfile.csv');
-    expect(fs.accessSync('./test/csvfile-filtered.csv')).toBeTruthy();
+    expect(fs.existsSync('./test/csvfile-filtered.csv')).toBeTruthy();
   });
 });
