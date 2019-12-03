@@ -22,9 +22,10 @@
   "dependencies": {
     "@babel/preset-env": "^7.5.5",
     "babel-jest": "^24.9.0",
-    "csv-parser": "^2.3.2",
+    "csvtojson": "^2.0.10",
     "jest": "^24.9.0",
-    "jest-cli": "^24.9.0"
+    "jest-cli": "^24.9.0",
+    "json2csv": "^4.5.4"
   },
   "jest": {
     "transform": {
@@ -33,7 +34,14 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
     ]
   }
 }
