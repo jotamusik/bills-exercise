@@ -136,5 +136,18 @@ describe('Bills Filter Strange Cases', function () {
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
+    test('Should do nothing on empty file input', async function () {
+      let input = "";
+
+      let expectedOutput = "";
+
+      let inputFile = './test/csvfile.csv';
+      let outputFile = './test/csvfile-filtered.csv';
+
+      fs.writeFileSync(inputFile, input);
+
+      await billsFilter(inputFile);
+      expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
+    });
   });
 });
