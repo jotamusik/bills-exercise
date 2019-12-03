@@ -21,20 +21,28 @@ function getPathFrom(uri) {
   return splittedUri.join('/');
 }
 
+function validRows(row) {
+  if ( row.IVA !== "" && row.IGIC !== "" ) {
+    return false;
+  }
+  return true
+}
+
 function billsFilter(uri) {
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const csvParser = new CsvParser();
     csvParser.readFromFile(uri).then(input => {
+
+      let output = [];
+
+      output = input.filter(validRows);
+
       let outputPath = getPathFrom(uri);
-      csvParser.writeToFile(input, `${ outputPath }/csvfile-filtered.csv`);
+      csvParser.writeToFile(output, `${ outputPath }/csvfile-filtered.csv`);
       resolve();
     });
   });
-
-  // let input = fs.readFileSync(uri);
-  // let outputPath = getPathFrom(uri);
-  // fs.writeFileSync(`${outputPath}/csvfile-filtered.csv`, input);
 }
 
 export {
