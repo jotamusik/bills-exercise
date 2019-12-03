@@ -34,13 +34,7 @@ function rowIsRepeated(array, row) {
 }
 
 function validRows(row, index, array) {
-  if ( ivaAndIgicAreBothSetted(row) ) {
-    return false;
-  }
-  if ( cifAndNifAreBothSetted(row) ) {
-    return false;
-  }
-  if ( rowIsRepeated(array, row) ) {
+  if ( ivaAndIgicAreBothSetted(row) || cifAndNifAreBothSetted(row) || rowIsRepeated(array, row) ) {
     return false;
   }
   return true
