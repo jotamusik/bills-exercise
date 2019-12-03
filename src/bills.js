@@ -25,6 +25,9 @@ function validRows(row) {
   if ( row.IVA !== "" && row.IGIC !== "" ) {
     return false;
   }
+  if ( row.CIF_cliente !== "" && row.NIF_cliente !== "" ) {
+    return false;
+  }
   return true
 }
 
