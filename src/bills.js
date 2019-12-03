@@ -21,11 +21,26 @@ function getPathFrom(uri) {
   return splittedUri.join('/');
 }
 
-function validRows(row) {
-  if ( row.IVA !== "" && row.IGIC !== "" ) {
+function ivaAndIgicAreBothSetted(row) {
+  return row.IVA !== "" && row.IGIC !== "";
+}
+
+function cifAndNifAreBothSetted(row) {
+  return row.CIF_cliente !== "" && row.NIF_cliente !== "";
+}
+
+function rowIsRepeated(array, row) {
+  return array.filter(anotherRow => anotherRow.Num_factura === row.Num_factura).length > 1;
+}
+
+function validRows(row, index, array) {
+  if ( ivaAndIgicAreBothSetted(row) ) {
     return false;
   }
-  if ( row.CIF_cliente !== "" && row.NIF_cliente !== "" ) {
+  if ( cifAndNifAreBothSetted(row) ) {
+    return false;
+  }
+  if ( rowIsRepeated(array, row) ) {
     return false;
   }
   return true
