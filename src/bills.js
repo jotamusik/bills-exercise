@@ -33,8 +33,22 @@ function rowIsRepeated(array, row) {
   return array.filter(anotherRow => anotherRow.Num_factura === row.Num_factura).length > 1;
 }
 
+function calculateGros(net, taxesPercentaje) {
+  return net + ( net * taxesPercentaje / 100 );
+}
+
+function grosIsWrongCalculated(row) {
+  if ( row.IVA === "" ) {
+    return parseFloat(row.Bruto) !== calculateGros(parseFloat(row.Neto), parseFloat(row.IGIC));
+  }
+  else {
+    return parseFloat(row.Bruto) !== calculateGros(parseFloat(row.Neto), parseFloat(row.IVA));
+  }
+}
+
 function validRows(row, index, array) {
-  if ( ivaAndIgicAreBothSetted(row) || cifAndNifAreBothSetted(row) || rowIsRepeated(array, row) ) {
+  if ( ivaAndIgicAreBothSetted(row) || cifAndNifAreBothSetted(row) ||
+      rowIsRepeated(array, row) || grosIsWrongCalculated(row) ) {
     return false;
   }
   return true
@@ -46,10 +60,7 @@ function billsFilter(uri) {
     const csvParser = new CsvParser();
     csvParser.readFromFile(uri).then(input => {
 
-      let output = [];
-
-      output = input.filter(validRows);
-
+      let output = input.filter(validRows);
       let outputPath = getPathFrom(uri);
       csvParser.writeToFile(output, `${ outputPath }/csvfile-filtered.csv`);
       resolve();
