@@ -1,4 +1,4 @@
-import { billsFilter } from "../src/bills";
+import { csvValidBillsFilter } from "../src/bills";
 import * as fs from 'fs';
 
 function cleanUpFile(file) {
@@ -27,7 +27,7 @@ describe('Bills Filter General Behaviour', function () {
     writeDataToFile(input, inputFile);
     cleanUpFile(outputFile);
 
-    await billsFilter(inputFile);
+    await csvValidBillsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
   });
   test('Should discard those rows with CIF and NIF (both) setted', async function () {
@@ -47,7 +47,7 @@ describe('Bills Filter General Behaviour', function () {
     writeDataToFile(input, inputFile);
     cleanUpFile(outputFile);
 
-    await billsFilter(inputFile);
+    await csvValidBillsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
   });
   test('Should discard those rows with already used num_factura', async function () {
@@ -66,7 +66,7 @@ describe('Bills Filter General Behaviour', function () {
     writeDataToFile(input, inputFile);
     cleanUpFile(outputFile);
 
-    await billsFilter(inputFile);
+    await csvValidBillsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
   });
   test('Should discard those rows with wrong calculated gros price', async function () {
@@ -85,7 +85,7 @@ describe('Bills Filter General Behaviour', function () {
     writeDataToFile(input, inputFile);
     cleanUpFile(outputFile);
 
-    await billsFilter(inputFile);
+    await csvValidBillsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
   });
 });
@@ -104,7 +104,7 @@ describe('Bills Filter Strange Cases', function () {
       writeDataToFile(input, inputFile);
       cleanUpFile(outputFile);
 
-      await billsFilter(inputFile);
+      await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
     test('Should discard CIF and NIF setted row', async function () {
@@ -119,7 +119,7 @@ describe('Bills Filter Strange Cases', function () {
       writeDataToFile(input, inputFile);
       cleanUpFile(outputFile);
 
-      await billsFilter(inputFile);
+      await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
     test('Should discard wrong calculated gros price row', async function () {
@@ -134,7 +134,7 @@ describe('Bills Filter Strange Cases', function () {
       writeDataToFile(input, inputFile);
       cleanUpFile(outputFile);
 
-      await billsFilter(inputFile);
+      await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
     test('Should output the header on no rows', async function () {
@@ -148,7 +148,7 @@ describe('Bills Filter Strange Cases', function () {
       writeDataToFile(input, inputFile);
       cleanUpFile(outputFile);
 
-      await billsFilter(inputFile);
+      await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
     test('Should do nothing on empty file input', async function () {
@@ -162,7 +162,7 @@ describe('Bills Filter Strange Cases', function () {
       writeDataToFile(input, inputFile);
       cleanUpFile(outputFile);
 
-      await billsFilter(inputFile);
+      await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
   });

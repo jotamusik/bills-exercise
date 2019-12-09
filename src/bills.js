@@ -54,7 +54,7 @@ function validRows(row, index, array) {
   return true
 }
 
-function billsFilter(uri) {
+function csvValidBillsFilter(uri) {
 
   return new Promise((resolve) => {
     const csvParser = new CsvParser();
@@ -68,5 +68,5 @@ function billsFilter(uri) {
 }
 
 export {
-  billsFilter
+  csvValidBillsFilter
 }
