@@ -21,11 +21,11 @@ function getPathFrom(uri) {
   return splittedUri.join('/');
 }
 
-function ivaAndIgicAreBothSetted(row) {
+function ivaAndIgicAreBothSet(row) {
   return row.IVA !== "" && row.IGIC !== "";
 }
 
-function cifAndNifAreBothSetted(row) {
+function cifAndNifAreBothSet(row) {
   return row.CIF_cliente !== "" && row.NIF_cliente !== "";
 }
 
@@ -33,22 +33,22 @@ function rowIsRepeated(array, row) {
   return array.filter(anotherRow => anotherRow.Num_factura === row.Num_factura).length > 1;
 }
 
-function calculateGros(net, taxesPercentaje) {
+function calculateGross(net, taxesPercentaje) {
   return net + ( net * taxesPercentaje / 100 );
 }
 
-function grosIsWrongCalculated(row) {
+function grossIsWrongCalculated(row) {
   if ( row.IVA === "" ) {
-    return parseFloat(row.Bruto) !== calculateGros(parseFloat(row.Neto), parseFloat(row.IGIC));
+    return parseFloat(row.Bruto) !== calculateGross(parseFloat(row.Neto), parseFloat(row.IGIC));
   }
   else {
-    return parseFloat(row.Bruto) !== calculateGros(parseFloat(row.Neto), parseFloat(row.IVA));
+    return parseFloat(row.Bruto) !== calculateGross(parseFloat(row.Neto), parseFloat(row.IVA));
   }
 }
 
 function validRows(row, index, array) {
-  if ( ivaAndIgicAreBothSetted(row) || cifAndNifAreBothSetted(row) ||
-      rowIsRepeated(array, row) || grosIsWrongCalculated(row) ) {
+  if ( ivaAndIgicAreBothSet(row) || cifAndNifAreBothSet(row) ||
+      rowIsRepeated(array, row) || grossIsWrongCalculated(row) ) {
     return false;
   }
   return true

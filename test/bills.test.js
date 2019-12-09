@@ -10,7 +10,7 @@ function writeDataToFile(data, file) {
 }
 
 describe('Bills Filter General Behaviour', function () {
-  test('Should discard those rows with IVA and IGIC (both) setted', async function () {
+  test('Should discard those rows with IVA and IGIC (both) set', async function () {
 
     let input = "Num_factura,Fecha,Bruto,Neto,IVA,IGIC,Concepto,CIF_cliente,NIF_cliente\n" +
         "1,02/05/2019,1190,1000,19,,ACER Laptop,B76430134,\n" +
@@ -30,7 +30,7 @@ describe('Bills Filter General Behaviour', function () {
     await csvValidBillsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
   });
-  test('Should discard those rows with CIF and NIF (both) setted', async function () {
+  test('Should discard those rows with CIF and NIF (both) set', async function () {
 
     let input = "Num_factura,Fecha,Bruto,Neto,IVA,IGIC,Concepto,CIF_cliente,NIF_cliente\n" +
         "1,02/05/2019,1190,1000,19,,ACER Laptop,B76430134,78545372A\n" +
@@ -92,7 +92,7 @@ describe('Bills Filter General Behaviour', function () {
 
 describe('Bills Filter Strange Cases', function () {
   describe('With one line cases', function () {
-    test('Should discard IGIC and IVA setted row', async function () {
+    test('Should discard IGIC and IVA set row', async function () {
       let input = "Num_factura,Fecha,Bruto,Neto,IVA,IGIC,Concepto,CIF_cliente,NIF_cliente\n" +
           "1,02/05/2019,1000,810,19,8,ACER Laptop,,78545372A";
 
@@ -107,7 +107,7 @@ describe('Bills Filter Strange Cases', function () {
       await csvValidBillsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
     });
-    test('Should discard CIF and NIF setted row', async function () {
+    test('Should discard CIF and NIF set row', async function () {
       let input = "Num_factura,Fecha,Bruto,Neto,IVA,IGIC,Concepto,CIF_cliente,NIF_cliente\n" +
           "1,02/05/2019,1000,810,19,,ACER Laptop,48545372E,78545372A";
 
