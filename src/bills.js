@@ -3,7 +3,7 @@ import csv from 'csvtojson';
 import { parse } from 'json2csv';
 
 class CsvParser {
-  async readFromFile(uri) {
+  readFromFile(uri) {
     return csv().fromFile(uri);
   }
 
