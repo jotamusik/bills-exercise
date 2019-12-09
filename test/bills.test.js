@@ -1,6 +1,13 @@
-
 import { billsFilter } from "../src/bills";
 import * as fs from 'fs';
+
+function cleanUpFile(file) {
+  writeDataToFile("", file);
+}
+
+function writeDataToFile(data, file) {
+  fs.writeFileSync(file, data);
+}
 
 describe('Bills Filter General Behaviour', function () {
   test('Should discard those rows with IVA and IGIC (both) setted', async function () {
@@ -17,7 +24,8 @@ describe('Bills Filter General Behaviour', function () {
     let inputFile = './test/csvfile.csv';
     let outputFile = './test/csvfile-filtered.csv';
 
-    fs.writeFileSync(inputFile, input);
+    writeDataToFile(input, inputFile);
+    cleanUpFile(outputFile);
 
     await billsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -36,7 +44,8 @@ describe('Bills Filter General Behaviour', function () {
     let inputFile = './test/csvfile.csv';
     let outputFile = './test/csvfile-filtered.csv';
 
-    fs.writeFileSync(inputFile, input);
+    writeDataToFile(input, inputFile);
+    cleanUpFile(outputFile);
 
     await billsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -54,7 +63,8 @@ describe('Bills Filter General Behaviour', function () {
     let inputFile = './test/csvfile.csv';
     let outputFile = './test/csvfile-filtered.csv';
 
-    fs.writeFileSync(inputFile, input);
+    writeDataToFile(input, inputFile);
+    cleanUpFile(outputFile);
 
     await billsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -72,7 +82,8 @@ describe('Bills Filter General Behaviour', function () {
     let inputFile = './test/csvfile.csv';
     let outputFile = './test/csvfile-filtered.csv';
 
-    fs.writeFileSync(inputFile, input);
+    writeDataToFile(input, inputFile);
+    cleanUpFile(outputFile);
 
     await billsFilter(inputFile);
     expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -90,7 +101,8 @@ describe('Bills Filter Strange Cases', function () {
       let inputFile = './test/csvfile.csv';
       let outputFile = './test/csvfile-filtered.csv';
 
-      fs.writeFileSync(inputFile, input);
+      writeDataToFile(input, inputFile);
+      cleanUpFile(outputFile);
 
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -104,7 +116,8 @@ describe('Bills Filter Strange Cases', function () {
       let inputFile = './test/csvfile.csv';
       let outputFile = './test/csvfile-filtered.csv';
 
-      fs.writeFileSync(inputFile, input);
+      writeDataToFile(input, inputFile);
+      cleanUpFile(outputFile);
 
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -118,7 +131,8 @@ describe('Bills Filter Strange Cases', function () {
       let inputFile = './test/csvfile.csv';
       let outputFile = './test/csvfile-filtered.csv';
 
-      fs.writeFileSync(inputFile, input);
+      writeDataToFile(input, inputFile);
+      cleanUpFile(outputFile);
 
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -131,7 +145,8 @@ describe('Bills Filter Strange Cases', function () {
       let inputFile = './test/csvfile.csv';
       let outputFile = './test/csvfile-filtered.csv';
 
-      fs.writeFileSync(inputFile, input);
+      writeDataToFile(input, inputFile);
+      cleanUpFile(outputFile);
 
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);
@@ -139,12 +154,13 @@ describe('Bills Filter Strange Cases', function () {
     test('Should do nothing on empty file input', async function () {
       let input = "";
 
-      let expectedOutput = "";
+      let expectedOutput = "Num_factura,Fecha,Bruto,Neto,IVA,IGIC,Concepto,CIF_cliente,NIF_cliente";
 
       let inputFile = './test/csvfile.csv';
       let outputFile = './test/csvfile-filtered.csv';
 
-      fs.writeFileSync(inputFile, input);
+      writeDataToFile(input, inputFile);
+      cleanUpFile(outputFile);
 
       await billsFilter(inputFile);
       expect(fs.readFileSync(outputFile).toString()).toBe(expectedOutput);

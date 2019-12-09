@@ -59,7 +59,6 @@ function billsFilter(uri) {
   return new Promise((resolve) => {
     const csvParser = new CsvParser();
     csvParser.readFromFile(uri).then(input => {
-
       let output = input.filter(validRows);
       let outputPath = getPathFrom(uri);
       csvParser.writeToFile(output, `${ outputPath }/csvfile-filtered.csv`);
